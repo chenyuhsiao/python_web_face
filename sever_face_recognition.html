@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>face_recognition</title>
+    <link rel="stylesheet" type="text/css" href="//stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+    <script>
+        function readURL(input){
+          if(input.files && input.files[0]){
+            var imageTagID = input.getAttribute("targetID");
+            var reader = new FileReader();
+            reader.onload = function (e) {
+               var img = document.getElementById(imageTagID);
+               img.setAttribute("src", e.target.result)
+            }
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+        
+    </script>
+    <!--消息框顏色-->
+    <style>
+      .alert {
+        padding: 20px;
+        background-color: #000000;
+        color: rgb(255, 255, 255);
+      }
+      
+      .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      
+      .closebtn:hover {
+        color: black;
+      }
+
+      
+      </style>
+      <style type="text/css">
+      /*div左右分隔*/
+        #DIV1{
+        width:49%;
+        line-height:50px;
+        padding:20px;
+        border:2px rgb(0, 0, 0) solid;
+        margin-right:10px;
+        float:left;
+        }
+        #DIV2{
+        width:49%;
+        line-height:50px;
+        padding:20px;
+        border:2px rgb(0, 0, 0) solid;
+        float:left;
+        }
+        /*div左右分隔*/
+        </style>
+        
+</head>
+<body>
+  <div id="A1" align="center">
+    
+    <img src="https://www.nkust.edu.tw/var/file/0/1000/img/513/182513897.png"  width="700" height="80">
+    
+  </div>
+
+  <div id="DIV1">
+    <h2>face transition</h2>
+    <hr>
+    <h3>臉部訓練</h3>
+    <hr>
+    <form action="/upload_pic" method="POST"  enctype=multipart/form-data>
+
+      <input type="file" name="file" onchange="readURL(this)" targetID="preview_img1" accept="image/gif, image/jpeg, image/png">
+      <br>
+      <img id="preview_img1" src="https://progressbar.tw/uploads/ckeditor/pictures/501/content_CoverJS3_small.png" width=150 height=200>
+      <label>請輸入全名:</label>
+      <input type="text" name="user">
+      <input type="submit" class="btn btn-primary" name="upload" value="創建訓練">
+      <input type="text" name="password">
+      <input type="submit" class="btn btn-primary" name="upload" value="清除訓練">
+      </form>
+      <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;
+        </span>
+      <h1>訓練結果：{{output1}}</h1>
+      </div>
+
+  </div>
+<div class="container" id="DIV2">
+    <h2>face recognition</h2>
+    <hr>
+    <h3>臉部辨識</h3>
+    <hr>
+        <form action="/recognize_pic" method="POST"  enctype=multipart/form-data>
+        <input type="file" name="file" onchange="readURL(this)" targetID="preview_img2" accept="image/gif, image/jpeg, image/png">
+        <br>
+        <img id="preview_img2" src="https://progressbar.tw/uploads/ckeditor/pictures/501/content_CoverJS3_small.png" width=150 height=200>
+        
+        <input type="submit" class="btn btn-primary" name="download" value="開始辨識">
+
+        </form>
+
+        <div class="alert">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;
+          </span>
+        <h1>這個人是{{output}}</h1>
+        </div>
+        <div class="alert">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;
+          </span>
+        <h1>json:</h1>
+        <h1>{{json_result}}</h1>
+        </div>
+        
+</div>
+
+
+
+</body>
+</html>
